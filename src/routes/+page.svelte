@@ -1,3 +1,19 @@
-<h1>Welcome to your library project</h1>
-<p>Create your package using @sveltejs/package and preview/showcase your work with SvelteKit</p>
-<p>Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the documentation</p>
+<script>
+    import { onMount } from "svelte";
+    import { useStoryblokBridge, StoryblokComponent } from "@storyblok/svelte";
+ 
+    export let data;
+ 
+    onMount(() => {
+        useStoryblokBridge(
+            data.story.id,
+            (newStory) => (data.story = newStory)
+        );
+    });
+</script>
+ 
+<div>
+    {#if data.story}
+        <StoryblokComponent blok={data.story.content} />
+    {/if}
+</div>
